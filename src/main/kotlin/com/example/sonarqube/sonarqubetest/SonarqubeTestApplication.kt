@@ -2,6 +2,7 @@ package com.example.sonarqube.sonarqubetest
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import java.math.BigInteger
 
 @SpringBootApplication
 class SonarqubeTestApplication
