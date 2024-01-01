@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  java-version: 17
+  java-version: 11
 
 permissions:
   pull-requests: write
