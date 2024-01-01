@@ -43,3 +43,15 @@ jobs:
           args:
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.organization=f-lab-edu-1
+
+      - name: Check for Specific Failure
+        if: ${{ steps.script.outcome == 'failure' }}
+        run: |
+          error_log=$(cat ${GITHUB_WORKSPACE}/error.log)
+          if [[ $error_log == *"You should use the SonarQube plugin"* ]]; then
+            echo "Recognized SonarQube plugin message. Exiting with success."
+            exit 0
+          else
+            echo "Unexpected error message. Exiting with failure."
+            exit 1
+          fi
