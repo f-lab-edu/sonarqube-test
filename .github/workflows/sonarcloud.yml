@@ -22,6 +22,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: AI Code Reviewer
+        uses: freeedcom/ai-code-reviewer@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
+          OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
+          OPENAI_API_MODEL: "gpt-4"
+          exclude: "**/*.json, **/*.md"
+
 #      - name: Set SonarCloud Project Key
 #        run: |
 #          REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)
