@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: AI Code Reviewer
-        uses: freeedcom/ai-codereviewer@main
+        uses: f-lab-dev/ai-codereviewer@main
         with:
           GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
           OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
@@ -37,25 +37,25 @@ jobs:
           SONAR_PROJECT_KEY="${ORG_NAME}_${REPO_NAME}"
           echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY" >> $GITHUB_ENV
 
-#      - name: Analyze
-#        run: ./gradlew sonar -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} -Dsonar.organization=f-lab-edu-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SECRET_SONARQUBE }} -Dsonar.gradle.skipCompile=true
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
-
-      - name: Analyze with SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
-        id: analyze-sonarcloud
-        continue-on-error: true
+      - name: Analyze
+        run: ./gradlew sonar -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} -Dsonar.organization=f-lab-edu-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SECRET_SONARQUBE }} -Dsonar.gradle.skipCompile=true
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }}
           SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
-        with:
-          args:
-            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=f-lab-edu-1
 
-      - name: Check for Sonarcloud Failure
-        run: |
-          if echo "${{ steps.analyze-sonarcloud.outputs.script-output }}" | grep -q "You should use the SonarQube plugin"; then
-            exit 1
-          fi
+#      - name: Analyze with SonarCloud
+#        uses: SonarSource/sonarcloud-github-action@master
+#        id: analyze-sonarcloud
+#        continue-on-error: true
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }}
+#          SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
+#        with:
+#          args:
+#            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+#            -Dsonar.organization=f-lab-edu-1
+#
+#      - name: Check for Sonarcloud Failure
+#        run: |
+#          if echo "${{ steps.analyze-sonarcloud.outputs.script-output }}" | grep -q "You should use the SonarQube plugin"; then
+#            exit 1
+#          fi
