@@ -26,6 +26,11 @@ jobs:
           SONAR_PROJECT_KEY="${ORG_NAME}_${REPO_NAME}"
           echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY" >> $GITHUB_ENV
 
+      - name: Analyze
+        run: ./gradlew sonarqube
+        env:
+          SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
+
       - name: Analyze with SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
         env:
