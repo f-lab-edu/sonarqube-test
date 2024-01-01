@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: AI Code Reviewer
-        uses: f-lab-dev/ai-codereviewer@main
+        uses: f-lab-bot/ai-codereviewer@main
         with:
           GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
           OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
