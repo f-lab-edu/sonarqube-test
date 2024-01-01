@@ -34,12 +34,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
 
-      - name: Analyze with SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }}
-          SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
-        with:
-          args:
-            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=f-lab-edu-1
+#      - name: Analyze with SonarCloud
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }}
+#          SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
+#        with:
+#          args:
+#            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
+#            -Dsonar.organization=f-lab-edu-1
