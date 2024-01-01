@@ -7,6 +7,9 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
+env:
+  java-version: 17
+
 permissions:
   pull-requests: write
 
