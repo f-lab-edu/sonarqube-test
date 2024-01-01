@@ -46,8 +46,7 @@ jobs:
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
             -Dsonar.organization=f-lab-edu-1
 
-      - name: Check for Specific Failure
-        if: ${{ steps.script.outcome == 'failure' }}
+      - name: Check for Sonarcloud Failure
         run: |
           if echo "${{ steps.analyze-sonarcloud.outputs.script-output }}" | grep -q "You should use the SonarQube plugin"; then
             exit 1
