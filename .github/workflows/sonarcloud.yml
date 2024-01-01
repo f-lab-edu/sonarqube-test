@@ -2,9 +2,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "feature/test" ]
   pull_request:
-    branches: [ "*" ]
+    branches: [ "feature/test" ]
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
           echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY" >> $GITHUB_ENV
 
       - name: Analyze with SonarCloud
-        uses: SonarSource/sonarcloud-github-action@de2e56b42aa84d0b1c5b622644ac17e505c9a049
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }}
           SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
