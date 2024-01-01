@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class SonarqubeTestApplication
 
 fun main(args: Array<String>) {
+    println("Hello, world!")
     runApplication<SonarqubeTestApplication>(*args)
 }
