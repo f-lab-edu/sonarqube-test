@@ -25,7 +25,7 @@ jobs:
       - name: AI Code Reviewer
         uses: freeedcom/ai-codereviewer@main
         with:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
+          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
           OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
           OPENAI_API_MODEL: "gpt-4"
           exclude: "**/*.json, **/*.md"
@@ -47,7 +47,7 @@ jobs:
         id: analyze-sonarcloud
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }}
           SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
         with:
           args:
