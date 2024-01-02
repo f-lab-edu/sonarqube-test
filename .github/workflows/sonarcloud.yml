@@ -22,13 +22,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: AI Code Reviewer
-        uses: f-lab-dev/ai-codereviewer@main
-        with:
-          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
-          OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
-          OPENAI_API_MODEL: "gpt-4"
-          exclude: "**/*.json, **/*.md"
+#      - name: AI Code Reviewer
+#        uses: f-lab-dev/ai-codereviewer@main
+#        with:
+#          GITHUB_TOKEN: ${{ secrets.SECRET_GITHUB_BOT }} # The GITHUB_TOKEN is there by default so you just need to keep it like it is and not necessarily need to add it as secret as it will throw an error. [More Details](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
+#          OPENAI_API_KEY: ${{ secrets.SECRET_GPT }}
+#          OPENAI_API_MODEL: "gpt-4"
+#          exclude: "**/*.json, **/*.md"
 
       - name: Set SonarCloud Project Key
         run: |
@@ -37,8 +37,15 @@ jobs:
           SONAR_PROJECT_KEY="${ORG_NAME}_${REPO_NAME}"
           echo "SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY" >> $GITHUB_ENV
 
+      - name: Create Sonar Gradle File
+        run: |
+          echo "plugins { id 'org.sonarqube' version '4.4.1.3373' }" >> sonar.gradle
+
+      - name: Build Sonar
+        run: ./gradlew build -I sonar.gradle
+
       - name: Analyze
-        run: ./gradlew sonar -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} -Dsonar.organization=f-lab-edu-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SECRET_SONARQUBE }} -Dsonar.gradle.skipCompile=true
+        run: ./gradlew sonar -I sonar.gradle -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} -Dsonar.organization=f-lab-edu-1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SECRET_SONARQUBE }} -Dsonar.gradle.skipCompile=true
         env:
           SONAR_TOKEN: ${{ secrets.SECRET_SONARQUBE }}
 
